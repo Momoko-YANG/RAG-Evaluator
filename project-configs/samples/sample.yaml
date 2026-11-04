@@ -1,0 +1,52 @@
+# Offline evaluation of the bundled sample (datasets/sample/), which has the layout and
+# record format of a collected dataset. No Azure and no RAG system needed:
+# use it to check the installation and to see every report section with ranking metrics.
+#
+#   rag-eval --config project-configs/samples/sample.yaml
+#
+# datasets/sample/example-run/golden.jsonl is a collected run of the golden side
+# (smoke + golden; holdout is not queried), with answers, top-3 chunks and chunk_id.
+# smp-004 is a retrieval miss with a wrong answer; smp-010 is not answered by the
+# documents, so the label-based metrics skip it.
+
+project_name: sample
+dataset_path: datasets/sample/example-run/golden.jsonl
+
+mode: local
+
+report_format:
+  - json
+  - markdown
+  - html
+output_dir: output
+
+metadata:
+  environment: sample
+
+local_mode:
+  evaluators:
+    # Retrieval (labels / qrels)
+    - retrieval_hit_rate
+    - retrieval_mrr
+    - retrieval_recall
+    - retrieval_ndcg
+    - context_presence
+    # Generation (deterministic)
+    - answer_presence
+    - exact_match_accuracy
+
+  thresholds:
+    answer_presence: 0.90
+    context_presence: 0.90
+
+  evaluator_options:
+    retrieval_hit_rate: {k: 3}
+    retrieval_mrr: {k: 3}
+    retrieval_recall:
+      qrels_path: datasets/sample/qrels/single-gold-v1.jsonl
+      annotation_version: single-gold-v1
+      k: [1, 3]
+    retrieval_ndcg:
+      qrels_path: datasets/sample/qrels/single-gold-v1.jsonl
+      annotation_version: single-gold-v1
+      k: [3]

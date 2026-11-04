@@ -1,0 +1,97 @@
+# Project Configuration Template
+# Copy this file and customise for your RAG project.
+# See docs/configuration.md and docs/modes.md for full documentation.
+
+project_name: <your-project-name>
+dataset_path: datasets/<your-project>/eval.jsonl
+
+# Execution mode: "local" or "cloud"
+# - local: evaluators run in-process (scaffold + Azure SDK + LLM judges)
+# - cloud: evaluators run remotely via Azure AI Foundry
+mode: local
+
+# Output report formats.  Supported: json, markdown, html.
+report_format:
+  - json
+  - markdown
+output_dir: output
+
+# Arbitrary metadata (included in reports).
+metadata:
+  team: <your-team>
+  environment: development
+
+# ======================================================================
+# LOCAL MODE CONFIGURATION
+# ======================================================================
+# Supports 3 tiers: scaffold, Azure SDK, LLM-as-a-judge.
+# See docs/evaluators.md for available evaluators and docs/modes.md for setup.
+
+local_mode:
+  evaluators:
+    # Built-in scaffold evaluators (no Azure required):
+    - answer_presence
+    - context_presence
+    - exact_match_accuracy
+    # Uncomment Azure SDK evaluators (require pip install -e ".[azure]" + credentials):
+    # - groundedness
+    # - relevance
+    # - retrieval
+    # - response_completeness
+    # Uncomment LLM judges (require pip install -e ".[judges]" + Azure OpenAI):
+    # - accuracy_judge
+    # - hallucination_judge
+    # - citation_judge
+    # - policy_compliance_judge
+
+  thresholds:
+    answer_presence: 0.90
+    exact_match_accuracy: 0.80
+
+  # Azure OpenAI connection (required for Azure SDK + LLM judge evaluators):
+  # azure:
+  #   endpoint: https://your-resource.openai.azure.com
+  #   deployment_name: gpt-4
+  #   api_version: "2024-12-01-preview"
+  #   credential_type: default
+
+  # LLM-as-a-judge settings:
+  # judge:
+  #   model: gpt-4.1
+  #   temperature: 0.0
+  #   max_tokens: 1024
+
+  # Per-evaluator options (see docs/configuration.md):
+  # evaluator_options:
+  #   accuracy_judge:
+  #     temperature: 0.0
+
+# ======================================================================
+# CLOUD MODE CONFIGURATION (uncomment for cloud execution)
+# ======================================================================
+# Only Azure SDK evaluators are supported.  LLM judges and scaffold
+# evaluators are NOT available in cloud mode.
+# See docs/modes.md for setup instructions.
+
+# cloud_mode:
+#   evaluators:
+#     - groundedness
+#     - relevance
+#     - retrieval
+#     - response_completeness
+#
+#   thresholds:
+#     groundedness: 0.80
+#     relevance: 0.75
+#
+#   azure:
+#     endpoint: https://your-resource.openai.azure.com
+#     deployment_name: gpt-4
+#     credential_type: default
+#
+#   foundry:
+#     endpoint: https://your-project.region.api.azureml.ms
+#     subscription_id: <your-subscription-id>
+#     resource_group: <your-rg>
+#     project_name: <your-foundry-project>
+#     credential_type: default

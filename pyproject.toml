@@ -1,0 +1,99 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rag-eval-framework"
+version = "0.3.0"
+description = "Config-driven evaluation framework for RAG systems: retrieval, generation and end-to-end metrics, with Azure AI Foundry support"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [
+    { name = "RAG Eval Team" },
+]
+keywords = ["rag", "evaluation", "azure", "ai", "foundry", "llm"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "pydantic>=2.0,<3.0",
+    "pyyaml>=6.0,<7.0",
+    "click>=8.0,<9.0",
+]
+
+[project.optional-dependencies]
+azure = [
+    "azure-ai-evaluation>=1.0.0",
+    "azure-identity>=1.15.0",
+]
+judges = [
+    "openai>=1.0",
+    "azure-identity>=1.15.0",
+]
+collect = [
+    "requests>=2.31",
+]
+cloud = [
+    "azure-ai-projects>=1.0.0b1",
+    "azure-ai-evaluation>=1.0.0",
+    "azure-identity>=1.15.0",
+]
+all = [
+    "azure-ai-evaluation>=1.0.0",
+    "azure-ai-projects>=1.0.0b1",
+    "azure-identity>=1.15.0",
+    "openai>=1.0",
+    "requests>=2.31",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4.0",
+    "mypy>=1.8",
+    "types-PyYAML>=6.0",
+]
+
+[project.scripts]
+rag-eval = "rag_eval_framework.cli.run:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rag_eval_framework"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["B017"]  # allow pytest.raises(Exception) in tests where appropriate
+
+[tool.ruff.lint.isort]
+known-first-party = ["rag_eval_framework"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+source = ["src/rag_eval_framework"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 60

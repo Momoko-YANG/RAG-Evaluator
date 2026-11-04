@@ -1,0 +1,65 @@
+{
+  "description": "Fictional sample in the layout and format of a collected dataset.",
+  "service": "sample-search",
+  "index": "index-sample",
+  "indexCount": 10,
+  "sampleSeed": "sample",
+  "labelStatus": "illustrative, hand-written",
+  "split": {
+    "holdoutRatio": 0.2,
+    "smokeSize": 3,
+    "seed": "sample"
+  },
+  "singleGoldQrels": "single-gold-v1",
+  "files": {
+    "bank/questions.csv": {
+      "sha256": "655c8f3e0d28b7a66ba18b8c6ea084e4370ca1687ca907a2ebed3ac4fa484a02"
+    },
+    "sets/smoke.csv": {
+      "sha256": "698dc455bb4ee93af5241367c197406f5cbba1f345ce497db0b64e11fac9a5d2"
+    },
+    "sets/golden.csv": {
+      "sha256": "b97029a0adef0c730c8f4eca99ae6c371fe7e07cfe2b1ea5d80a016c37d69e7e"
+    },
+    "sets/holdout.csv": {
+      "sha256": "94e8b18894d769a0f2f605a8be834db32dffaa0813c8cbf1460fe5064d98b40c"
+    },
+    "chunks/sampled_chunks.jsonl": {
+      "sha256": "49355b349c62387b864e285c37c037f8dec1ab64d1c5c6ced54cacec5f6d72ba"
+    },
+    "qrels/single-gold-v1.jsonl": {
+      "sha256": "8c9e40a77740f33c3b94ab9754f78c0d05b1cf489a9d9bc96a10b3b78ccc7e25"
+    }
+  },
+  "questionCount": 10,
+  "excludedCount": 0,
+  "sourceCount": 9,
+  "validation": {
+    "checked_at": "2026-10-28T06:31:59.960616+00:00",
+    "actual": {
+      "questions": 10,
+      "smoke": 3,
+      "golden": 7,
+      "holdout": 3,
+      "sampled_chunks": 9,
+      "excluded": 0
+    },
+    "evidence_matches": 9,
+    "title_matches": 9,
+    "content_hash_matches": 9,
+    "unique_ids": 10,
+    "unique_normalized_questions": 10,
+    "unique_source_parents": 5,
+    "golden_holdout_parent_overlap": 0,
+    "smoke_subset_of_golden": true,
+    "boilerplate_evidence_remaining": 0,
+    "label_statuses": {
+      "sample-illustrative": 10
+    },
+    "unanswerable_questions": 1,
+    "question_group_sizes": {
+      "1": 10
+    },
+    "problems": []
+  }
+}

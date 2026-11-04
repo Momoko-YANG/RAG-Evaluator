@@ -1,0 +1,2 @@
+# Dataset files are hashed (manifest.json): keep their bytes, no line-ending conversion.
+datasets/** -text

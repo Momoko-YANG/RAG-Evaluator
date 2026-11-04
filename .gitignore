@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Framework outputs (root-anchored so src/rag_eval_framework/reports/ is NOT ignored)
+/output/
+/output-cloud/
+/reports/
+*.log
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Datasets: everything except the bundled sample stays local (private documents / questions)
+/datasets/*
+!/datasets/sample/
